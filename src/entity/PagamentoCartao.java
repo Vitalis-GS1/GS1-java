@@ -3,7 +3,6 @@ package entity;
 import enums.BandeiraCartao;
 import enums.TipoCartao;
 import enums.StatusPagamento;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.UUID;

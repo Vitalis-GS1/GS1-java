@@ -12,16 +12,113 @@ import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
 import static java.lang.Double.parseDouble;
 
-public class Main {
+public class Principal {
+
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
+        List<Usuario> usuarios = new ArrayList<>();
+        List<Campanha> campanhas = new ArrayList<>();
+        List<Doacao> doacoes = new ArrayList<>();
 
-        Usuario  usuario = cadastrarUsuario(scanner);
-        System.out.println("Usuário cadastrado com sucesso!");
-        System.out.println(usuario);
-        System.out.println(usuario.getCampanha());
-        System.out.println(usuario.getDoacao());
+        int opcao;
+
+        do {
+            System.out.println("\n--- MENU ---");
+            System.out.println("1 - Cadastrar usuário");
+            System.out.println("2 - Criar campanha");
+            System.out.println("3 - Fazer doação");
+            System.out.println("4 - Listar campanhas");
+            System.out.println("5 - Listar doações");
+            System.out.println("6 - Listar usuarios");
+            System.out.println("0 - Sair");
+            System.out.print("Escolha uma opção: ");
+            opcao = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcao) {
+                case 1:
+                    usuarios.add(cadastrarUsuario(scanner));
+                    System.out.println("Usuário cadastrado com sucesso!");
+                    break;
+
+                case 2:
+                    if (usuarios.isEmpty()) {
+                        System.out.println("Nenhum usuário cadastrado ainda.");
+                        break;
+                    }
+                    System.out.println("Escolha o receptor (índice): ");
+                    for (int i = 0; i < usuarios.size(); i++) {
+                        System.out.println(i + " - " + usuarios.get(i));
+                    }
+                    int idxReceptor = scanner.nextInt();
+                    scanner.nextLine();
+                    if (idxReceptor < 0 || idxReceptor >= usuarios.size()) {
+                        System.out.println("Índice inválido.");
+                        break;
+                    }
+                    campanhas.addAll(cadastrarCampanhas(scanner));
+                    System.out.println("Campanha criada com sucesso!");
+                    break;
+
+                case 3:
+                    if (usuarios.isEmpty() || campanhas.isEmpty()) {
+                        System.out.println("Cadastre pelo menos um usuário e uma campanha antes de doar.");
+                        break;
+                    }
+
+                    System.out.println("Escolha o doador (índice): ");
+                    for (int i = 0; i < usuarios.size(); i++) {
+                        System.out.println(i + " - " + usuarios.get(i));
+                    }
+                    int idxDoador = scanner.nextInt();
+
+                    System.out.println("Escolha a campanha (índice): ");
+                    for (int i = 0; i < campanhas.size(); i++) {
+                        System.out.println(i + " - " + campanhas.get(i));
+                    }
+                    int idxCampanha = scanner.nextInt();
+
+                    doacoes.addAll(fazerDoacao(scanner, campanhas));
+                    System.out.println("Doação registrada com sucesso!");
+                    break;
+
+                case 4:
+                    if (campanhas.isEmpty()) {
+                        System.out.println("Nenhuma campanha cadastrada.");
+                    } else {
+                        System.out.println("\n--- Campanhas ---");
+                        for (Campanha c : campanhas) {
+                            System.out.println(c);
+                        }
+                    }
+                    break;
+
+                case 5:
+                    if (doacoes.isEmpty()) {
+                        System.out.println("Nenhuma doação realizada.");
+                    } else {
+                        System.out.println("\n--- Doações ---");
+                        for (Doacao d : doacoes) {
+                            System.out.println(d);
+                        }
+                    }
+                    break;
+
+                    case 6:
+                    listarUsuarios(usuarios);
+                    break;
+
+                case 0:
+                    System.out.println("Saindo do sistema...");
+                    break;
+
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+
+        } while (opcao != 0);
+
+        scanner.close();
     }
 
     private static Usuario cadastrarUsuario(Scanner scanner) {
@@ -39,6 +136,7 @@ public class Main {
             System.out.println("Tipo de usuário inválido. Tente novamente.");
             return cadastrarUsuario(scanner);
         }
+        
     }
 
     private static PessoaFisica cadastrarPessoaFisica(Scanner scanner) {
@@ -54,11 +152,7 @@ public class Main {
         List<Endereco> enderecos = cadastrarEnderecos(scanner);
         List<Email> emails = cadastrarEmails(scanner);
         List<Telefone> telefones = cadastrarTelefones(scanner);
-
-        List<Campanha> campanhas = cadastrarCampanhas(scanner);
-        List<Doacao> doacoes = fazerDoacao(scanner, campanhas);
-
-        return new PessoaFisica(enderecos, emails, telefones, campanhas, doacoes, cpf, nome, dataNascimento);
+        return new PessoaFisica(enderecos, emails, telefones, cpf, nome, dataNascimento);
     }
 
     private static PessoaJuridica cadastrarPessoaJuridica(Scanner scanner) {
@@ -73,10 +167,7 @@ public class Main {
         List<Email> emails = cadastrarEmails(scanner);
         List<Telefone> telefones = cadastrarTelefones(scanner);
 
-        List<Campanha> campanhas = cadastrarCampanhas(scanner);
-        List<Doacao> doacoes = fazerDoacao(scanner, campanhas);
-
-        return new PessoaJuridica(enderecos, emails, telefones, campanhas, doacoes, cnpj, razao, nome);
+        return new PessoaJuridica(enderecos, emails, telefones, cnpj, razao, nome);
     }
 
     private static List<Endereco> cadastrarEnderecos(Scanner scanner) {
@@ -196,7 +287,7 @@ public class Main {
                 doacoes.add(doacao);
             }
             return doacoes;
-        } else if (resposta.equals('N')) {
+        } else if (resposta.equals("N")) {
             return null;
         } else {
             System.out.println("Resposta inválida. Tente novamente.");
@@ -210,8 +301,15 @@ public class Main {
             System.out.printf("%d - %s\n", i + 1, campanhas.get(i).getNome());
         }
 
+        //gambiarra a ser investigada pois o parse simplesmente nao quer funcionar
         System.out.print("Digite o número da campanha: ");
-        int escolha = parseInt(scanner.nextLine());
+String entrada = scanner.nextLine();
+while (entrada.isBlank() || !entrada.matches("\\d+")) {
+    System.out.print("");
+    entrada = scanner.nextLine();
+}
+int escolha = Integer.parseInt(entrada);
+
 
         Campanha campanhaSelecionada = campanhas.get(escolha - 1);
 
@@ -264,4 +362,11 @@ public class Main {
 
         return new PagamentoCartao(LocalDateTime.now(), StatusPagamento.APROVADO, bandeira, validade, numeroCartao, tipo);
     }
+    private static void listarUsuarios(List<Usuario> usuarios) {
+    for (int i = 0; i < usuarios.size(); i++) {
+        System.out.println(i + 1 + " - " + usuarios.get(i));
+        System.out.println(usuarios.get(i).getCampanha());
+        System.out.println(usuarios.get(i).getDoacao());
+    }
+}
 }

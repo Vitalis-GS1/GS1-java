@@ -15,6 +15,15 @@ public class PessoaFisica extends Usuario{
         this.nome = nome;
         this.dataNascimento = dataNascimento;
     }
+    
+    //sem doção e sem campanha, pra quando acabar de ser criado
+     public PessoaFisica(List<Endereco> endereco, List<Email> email, List<Telefone> telefones, Long cpf, String nome, LocalDate dataNascimento) {
+        super(endereco, email, telefones);
+        this.cpf = cpf;
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+    }
+
     public Long getCpf() {
         return cpf;
     }

@@ -14,6 +14,14 @@ public class PessoaJuridica extends  Usuario{
         this.nomeFantasia = nomeFantasia;
     }
 
+     //sem doção e sem campanha, pra quando acabar de ser criado
+    public PessoaJuridica(List<Endereco> endereco, List<Email> email, List<Telefone> telefones, Long cnpj, String razaoSocial, String nomeFantasia) {
+        super(endereco, email, telefones);
+        this.cnpj = cnpj;
+        this.razaoSocial = razaoSocial;
+        this.nomeFantasia = nomeFantasia;
+    }
+
     public Long getCnpj() {
         return cnpj;
     }

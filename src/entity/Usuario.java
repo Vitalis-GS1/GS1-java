@@ -19,6 +19,12 @@ public class Usuario {
         this.campanha = campanha;
         this.doacao = doacao;
     }
+     //sem doção e sem campanha, pra quando acabar de ser criado
+    public Usuario(List<Endereco> endereco, List<Email> email, List<Telefone> telefones) {
+        this.endereco = endereco;
+        this.email = email;
+        this.telefones = telefones;
+    }
 
     public List<Endereco> getEndereco() {
         return endereco;

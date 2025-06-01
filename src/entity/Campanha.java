@@ -6,7 +6,7 @@ public class Campanha {
     private Integer id = gerarId();
     private String nome;
     private String descricao;
-    private Double valorArrecadado;
+    private Double valorArrecadado = 0.0;
     private List<Doacao> doacoes;
 
     private static int proximoId = 1;
