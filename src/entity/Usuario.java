@@ -1,18 +1,31 @@
 package entity;
 
-public class Usuario {
-    private Integer id;
-    private Endereco endereco;
-    private Email email;
-    private Campanha campanha;
-    private Doacao doacao;
+import java.util.List;
 
-    public Usuario(Integer id, Endereco endereco, Email email, Campanha campanha, Doacao doacao) {
-        this.id = id;
+public class Usuario {
+    private Integer id = gerarId();
+    private List<Endereco> endereco;
+    private List<Email> email;
+    private List<Telefone> telefones;
+    private List<Campanha> campanha;
+    private List<Doacao> doacao;
+
+    private static int proximoId = 1;
+
+    public Usuario(List<Endereco> endereco, List<Email> email, List<Telefone> telefones, List<Campanha> campanha, List<Doacao> doacao) {
         this.endereco = endereco;
         this.email = email;
+        this.telefones = telefones;
         this.campanha = campanha;
         this.doacao = doacao;
+    }
+
+    public List<Endereco> getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(List<Endereco> endereco) {
+        this.endereco = endereco;
     }
 
     public Integer getId() {
@@ -23,35 +36,50 @@ public class Usuario {
         this.id = id;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
-    public Email getEmail() {
+    public List<Email> getEmail() {
         return email;
     }
 
-    public void setEmail(Email email) {
+    public void setEmail(List<Email> email) {
         this.email = email;
     }
 
-    public Campanha getCampanha() {
+    public List<Telefone> getTelefones() {
+        return telefones;
+    }
+
+    public void setTelefones(List<Telefone> telefones) {
+        this.telefones = telefones;
+    }
+
+    public List<Campanha> getCampanha() {
         return campanha;
     }
 
-    public void setCampanha(Campanha campanha) {
+    public void setCampanha(List<Campanha> campanha) {
         this.campanha = campanha;
     }
 
-    public Doacao getDoacao() {
+    public List<Doacao> getDoacao() {
         return doacao;
     }
 
-    public void setDoacao(Doacao doacao) {
+    public void setDoacao(List<Doacao> doacao) {
         this.doacao = doacao;
+    }
+
+    public static Integer gerarId() {
+        return proximoId++;
+    }
+
+    @Override
+    public String toString() {
+        return  "ID: " + id + "\n" +
+                "Endereço: " + endereco + "\n" +
+                "Email: " + email + "\n" +
+                "Telefone: " + telefones + "\n" +
+                (campanha != null ? "Campanhas: " + campanha.size() + "\n" : "") +
+                (doacao != null ? "Doações: " + doacao.size() + "\n" : "") +
+                "----------------\n";
     }
 }

@@ -1,23 +1,27 @@
 package entity;
 
+import java.util.List;
+
 public class Campanha {
-    private Integer id;
+    private Integer id = gerarId();
     private String nome;
     private String descricao;
-    private Long valorArrecadado;
+    private Double valorArrecadado;
+    private List<Doacao> doacoes;
 
-    public Campanha(Integer id, String nome, String descricao) {
-        this.id = id;
+    private static int proximoId = 1;
+
+    public Campanha(String nome, String descricao) {
         this.nome = nome;
         this.descricao = descricao;
     }
 
-    public Integer getId() {
-        return id;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getNome() {
@@ -28,11 +32,53 @@ public class Campanha {
         this.nome = nome;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public Integer getId() {
+        return id;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Double getValorArrecadado() {
+        return valorArrecadado;
+    }
+
+    public void setValorArrecadado(Double valorArrecadado) {
+        this.valorArrecadado = valorArrecadado;
+    }
+
+    public List<Doacao> getDoacoes() {
+        return doacoes;
+    }
+
+    public void setDoacoes(List<Doacao> doacoes) {
+        this.doacoes = doacoes;
+    }
+
+    public static Integer gerarId() {
+        return proximoId++;
+    }
+
+    public void fazerDoacao(Doacao doacao) {
+        if (doacoes == null) {
+            doacoes = new java.util.ArrayList<>();
+        }
+        doacoes.add(doacao);
+        if (valorArrecadado == null) {
+            valorArrecadado = 0.0;
+        }
+        valorArrecadado += doacao.getValorDoacao();
+    }
+
+    @Override
+    public String toString() {
+        return "--- Campanha ---\n" +
+                "Nome: " + nome + "\n" +
+                "ID: " + id + "\n" +
+                "Descrição: " + descricao + "\n" +
+                "Valor Arrecadado: R$ " + valorArrecadado + "\n" +
+                "Doações: " + (doacoes != null ? doacoes.size() : 0) + "\n" +
+                "----------------";
     }
 }
