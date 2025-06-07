@@ -250,7 +250,7 @@ public class Principal {
         Pagamento pagamento = cadastrarPagemento(scanner);
 
         Doacao doacao = new Doacao(campanhaSelecionada, LocalDateTime.now(), valor, pagamento);
-        campanhaSelecionada.fazerDoacao(doacao);
+        campanhaSelecionada.adicionarDoacao(doacao);
         return doacao;
     }
 

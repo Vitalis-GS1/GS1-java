@@ -76,7 +76,7 @@ public class Campanha {
         return proximoId++;
     }
 
-    public void fazerDoacao(Doacao doacao) {
+    public void adicionarDoacao(Doacao doacao) {
         if (doacoes == null) {
             doacoes = new java.util.ArrayList<>();
         }
