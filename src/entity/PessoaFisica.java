@@ -5,30 +5,30 @@ import java.time.Period;
 import java.util.List;
 
 public class PessoaFisica extends Usuario{
-    private Long cpf;
+    private String cpf;
     private String nome;
     private LocalDate dataNascimento;
 
-    public PessoaFisica(List<Endereco> endereco, List<Email> email, List<Telefone> telefones, List<Campanha> campanha, List<Doacao> doacao, Long cpf, String nome, LocalDate dataNascimento) {
-        super(endereco, email, telefones, campanha, doacao);
+    public PessoaFisica(List<Email> email, List<Telefone> telefones, List<Campanha> campanha, List<Doacao> doacao, String cpf, String nome, LocalDate dataNascimento) {
+        super(email, telefones, campanha, doacao);
         this.cpf = cpf;
         this.nome = nome;
         this.dataNascimento = dataNascimento;
     }
     
     //sem doção e sem campanha, pra quando acabar de ser criado
-     public PessoaFisica(List<Endereco> endereco, List<Email> email, List<Telefone> telefones, Long cpf, String nome, LocalDate dataNascimento) {
-        super(endereco, email, telefones);
+     public PessoaFisica(List<Email> email, List<Telefone> telefones, String cpf, String nome, LocalDate dataNascimento) {
+        super(email, telefones);
         this.cpf = cpf;
         this.nome = nome;
         this.dataNascimento = dataNascimento;
     }
 
-    public Long getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(Long cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 

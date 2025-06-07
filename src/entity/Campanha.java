@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Campanha {
     private Integer id = gerarId();
+    private Usuario usuario;
     private String nome;
     private String descricao;
     private Double valorArrecadado = 0.0;
@@ -14,6 +15,21 @@ public class Campanha {
     public Campanha(String nome, String descricao) {
         this.nome = nome;
         this.descricao = descricao;
+    }
+
+    public Campanha(Usuario usuario,String nome, String descricao) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.usuario = usuario;
+    }
+    
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public String getDescricao() {

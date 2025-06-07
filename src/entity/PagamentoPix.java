@@ -42,12 +42,21 @@ public class PagamentoPix extends Pagamento {
         this.tipoChavePix = tipoChavePix;
     }
 
-    private String encriptarChavePix(String chavePix) {
-        int tamanho = chavePix.length();
-        String ultimos3 = chavePix.substring(tamanho - 3);
-        String mascarado = "*".repeat(tamanho - 3) + ultimos3;
-        return mascarado;
+   private String encriptarChavePix(String chavePix) {
+    if (chavePix == null || chavePix.isEmpty()) {
+        return "Chave inválida";
     }
+    int tamanho = chavePix.length();
+    if (tamanho <= 3) {
+        return "*".repeat(tamanho);
+    }
+
+    String ultimos3 = chavePix.substring(tamanho - 3);
+    String mascarado = "*".repeat(tamanho - 3) + ultimos3;
+
+    return mascarado;
+}
+
 
     public static String gerarTransacao() {
         return UUID.randomUUID().toString().replace("-", "").substring(0, 12);

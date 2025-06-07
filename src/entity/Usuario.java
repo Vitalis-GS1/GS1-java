@@ -4,7 +4,6 @@ import java.util.List;
 
 public class Usuario {
     private Integer id = gerarId();
-    private List<Endereco> endereco;
     private List<Email> email;
     private List<Telefone> telefones;
     private List<Campanha> campanha;
@@ -12,27 +11,18 @@ public class Usuario {
 
     private static int proximoId = 1;
 
-    public Usuario(List<Endereco> endereco, List<Email> email, List<Telefone> telefones, List<Campanha> campanha, List<Doacao> doacao) {
-        this.endereco = endereco;
+    public Usuario(List<Email> email, List<Telefone> telefones, List<Campanha> campanha, List<Doacao> doacao) {
         this.email = email;
         this.telefones = telefones;
         this.campanha = campanha;
         this.doacao = doacao;
     }
-     //sem doção e sem campanha, pra quando acabar de ser criado
-    public Usuario(List<Endereco> endereco, List<Email> email, List<Telefone> telefones) {
-        this.endereco = endereco;
+     //sem doção e sem campanha, pra quando acabar de ser criado no menu
+    public Usuario( List<Email> email, List<Telefone> telefones) {
         this.email = email;
         this.telefones = telefones;
     }
-
-    public List<Endereco> getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(List<Endereco> endereco) {
-        this.endereco = endereco;
-    }
+ 
 
     public Integer getId() {
         return id;
@@ -81,7 +71,6 @@ public class Usuario {
     @Override
     public String toString() {
         return  "ID: " + id + "\n" +
-                "Endereço: " + endereco + "\n" +
                 "Email: " + email + "\n" +
                 "Telefone: " + telefones + "\n" +
                 (campanha != null ? "Campanhas: " + campanha.size() + "\n" : "") +

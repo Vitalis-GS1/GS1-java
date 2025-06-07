@@ -3,30 +3,30 @@ package entity;
 import java.util.List;
 
 public class PessoaJuridica extends  Usuario{
-    private Long cnpj;
+    private String cnpj;
     private String razaoSocial;
     private String nomeFantasia;
 
-    public PessoaJuridica(List<Endereco> endereco, List<Email> email, List<Telefone> telefones, List<Campanha> campanha, List<Doacao> doacao, Long cnpj, String razaoSocial, String nomeFantasia) {
-        super(endereco, email, telefones, campanha, doacao);
+    public PessoaJuridica(List<Email> email, List<Telefone> telefones, List<Campanha> campanha, List<Doacao> doacao, String cnpj, String razaoSocial, String nomeFantasia) {
+        super(email, telefones, campanha, doacao);
         this.cnpj = cnpj;
         this.razaoSocial = razaoSocial;
         this.nomeFantasia = nomeFantasia;
     }
 
      //sem doção e sem campanha, pra quando acabar de ser criado
-    public PessoaJuridica(List<Endereco> endereco, List<Email> email, List<Telefone> telefones, Long cnpj, String razaoSocial, String nomeFantasia) {
-        super(endereco, email, telefones);
+    public PessoaJuridica(List<Email> email, List<Telefone> telefones, String cnpj, String razaoSocial, String nomeFantasia) {
+        super(email, telefones);
         this.cnpj = cnpj;
         this.razaoSocial = razaoSocial;
         this.nomeFantasia = nomeFantasia;
     }
 
-    public Long getCnpj() {
+    public String getCnpj() {
         return cnpj;
     }
 
-    public void setCnpj(Long cnpj) {
+    public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
 
