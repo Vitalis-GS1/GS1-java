@@ -3,27 +3,17 @@ package entity;
 import enums.TipoChavePix;
 import enums.StatusPagamento;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class PagamentoPix extends Pagamento {
-    private String transacao;
     private String chavePix;
     private TipoChavePix tipoChavePix;
 
-    public PagamentoPix(LocalDateTime dataPagamento, StatusPagamento statusPagamento,
-                        String chavePix, TipoChavePix tipoChavePix) {
-        super(dataPagamento, statusPagamento);
-        this.transacao = gerarTransacao();
+
+    public PagamentoPix(String transacao, LocalDateTime dataPagamento, StatusPagamento statusPagamento,
+            String chavePix, TipoChavePix tipoChavePix) {
+        super(transacao, dataPagamento, statusPagamento);
         this.chavePix = chavePix;
         this.tipoChavePix = tipoChavePix;
-    }
-
-    public String getTransacao() {
-        return transacao;
-    }
-
-    public void setTransacao(String transacao) {
-        this.transacao = transacao;
     }
 
     public String getChavePix() {
@@ -56,17 +46,13 @@ public class PagamentoPix extends Pagamento {
 
     return mascarado;
 }
-
-
-    public static String gerarTransacao() {
-        return UUID.randomUUID().toString().replace("-", "").substring(0, 12);
-    }
+   
 
     @Override
     public String toString() {
         return "--- Pagamento ---" + "\n" +
                 "Método de Pagamento: Pix" + "\n" +
-                "Chave: " + encriptarChavePix(chavePix) + " - " + tipoChavePix.getNome() + " | Transação: " + transacao +"\n" +
+                "Chave: " + encriptarChavePix(chavePix) + " - " + tipoChavePix.getNome() + "\n" +
                 super.toString();
     }
 }

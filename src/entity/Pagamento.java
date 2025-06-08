@@ -1,16 +1,20 @@
 package entity;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
+
 import enums.StatusPagamento;
 
 public class Pagamento {
     private Integer id = gerarId();
+    private String transacao;
     private LocalDateTime dataPagamento;
     private StatusPagamento statusPagamento;
 
     private static int proximoId = 1;
 
-    public Pagamento(LocalDateTime dataPagamento, StatusPagamento statusPagamento) {
+    public Pagamento(String transacao, LocalDateTime dataPagamento, StatusPagamento statusPagamento) {
+        this.transacao = transacao;
         this.dataPagamento = dataPagamento;
         this.statusPagamento = statusPagamento;
     }
@@ -21,6 +25,22 @@ public class Pagamento {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getTransacao() {
+        return transacao;
+    }
+
+    public void setTransacao(String transacao) {
+        this.transacao = transacao;
+    }
+
+    public static int getProximoId() {
+        return proximoId;
+    }
+
+    public static void setProximoId(int proximoId) {
+        Pagamento.proximoId = proximoId;
     }
 
     public LocalDateTime getDataPagamento() {
@@ -41,6 +61,10 @@ public class Pagamento {
 
     public static Integer gerarId() {
         return proximoId++;
+    }
+
+     public static String gerarTransacao() {
+        return UUID.randomUUID().toString().replace("-", "").substring(0, 12);
     }
 
     @Override

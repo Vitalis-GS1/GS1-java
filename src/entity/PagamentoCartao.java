@@ -5,31 +5,20 @@ import enums.TipoCartao;
 import enums.StatusPagamento;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
-import java.util.UUID;
 
 public class PagamentoCartao extends Pagamento {
-    private String transacao;
     private BandeiraCartao bandeiraCartao;
     private Long numeroCartao;
     private YearMonth dataVencimento;
     private TipoCartao tipoCartao;
 
-    public PagamentoCartao(LocalDateTime dataPagamento, StatusPagamento statusPagamento,
-                           BandeiraCartao bandeiraCartao, YearMonth dataVencimento, Long numeroCartao,
-                           TipoCartao tipoCartao) {
-        super(dataPagamento, statusPagamento);
+    public PagamentoCartao(String transacao, LocalDateTime dataPagamento, StatusPagamento statusPagamento,
+            BandeiraCartao bandeiraCartao, Long numeroCartao, YearMonth dataVencimento, TipoCartao tipoCartao) {
+        super(transacao, dataPagamento, statusPagamento);
         this.bandeiraCartao = bandeiraCartao;
-        this.dataVencimento = dataVencimento;
         this.numeroCartao = numeroCartao;
+        this.dataVencimento = dataVencimento;
         this.tipoCartao = tipoCartao;
-    }
-
-    public String getTransacao() {
-        return transacao;
-    }
-
-    public void setTransacao(String transacao) {
-        this.transacao = transacao;
     }
 
     public BandeiraCartao getBandeiraCartao() {
@@ -56,8 +45,6 @@ public class PagamentoCartao extends Pagamento {
         this.dataVencimento = dataVencimento;
     }
 
-
-
     public TipoCartao getTipoCartao() {
         return tipoCartao;
     }
@@ -73,15 +60,11 @@ public class PagamentoCartao extends Pagamento {
         return mascarado;
     }
 
-    public static String gerarTransacao() {
-        return UUID.randomUUID().toString().replace("-", "").substring(0, 12);
-    }
-
     @Override
     public String toString() {
         return "--- Pagamento ---" + "\n" +
                 "Método de Pagamento: Cartão de " + tipoCartao.getTipo() + "\n" +
-                "Bandeira: " + bandeiraCartao.getNome() + " | Número do Cartão: " + encriptarNumeroCartao(numeroCartao) + " | Data de Vencimento" + dataVencimento + " | Transação: " + transacao +"\n" +
+                "Bandeira: " + bandeiraCartao.getNome() + " | Número do Cartão: " + encriptarNumeroCartao(numeroCartao) + " | Data de Vencimento" + dataVencimento  +"\n" +
                 super.toString();
     }
 }

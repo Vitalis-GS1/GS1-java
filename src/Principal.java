@@ -286,7 +286,7 @@ public class Principal {
         System.out.println("Digite o tipo de chave PIX: \n (1) CPF (2) CNPJ (3) Telefone (4) Email (5) Aleatória: ");
         String tipoChave = scanner.nextLine();
         TipoChavePix tipo = TipoChavePix.fromCodigo(tipoChave);
-        return new PagamentoPix(LocalDateTime.now(), StatusPagamento.APROVADO, chave, tipo);
+        return new PagamentoPix(Pagamento.gerarTransacao(),LocalDateTime.now(), StatusPagamento.APROVADO, chave, tipo);
     }
 
     private static Pagamento cadastrarPagamento(Scanner scanner) {
@@ -304,8 +304,7 @@ public class Principal {
         String tipoCod = scanner.nextLine();
         TipoCartao tipo = TipoCartao.fromCodigo(tipoCod);
 
-        return new PagamentoCartao(LocalDateTime.now(), StatusPagamento.APROVADO, bandeira, validade, numeroCartao,
-                tipo);
+        return new PagamentoCartao(Pagamento.gerarTransacao(),LocalDateTime.now(), StatusPagamento.APROVADO, bandeira, numeroCartao, validade, tipo);
     }
 
     private static void listarUsuarios(List<Usuario> usuarios) {
