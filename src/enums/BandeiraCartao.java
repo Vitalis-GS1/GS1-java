@@ -22,7 +22,9 @@ public enum BandeiraCartao {
     public String getNome() {
         return nome;
     }
-    public String getCodigo() { return codigo; }
+    public String getCodigo() { 
+        return codigo; 
+    }
 
     public static BandeiraCartao fromCodigo(String codigo) {
         List<BandeiraCartao> tipos = Arrays.asList(BandeiraCartao.values());
