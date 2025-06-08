@@ -19,6 +19,17 @@ public class Pagamento {
         this.statusPagamento = statusPagamento;
     }
 
+    public void registrarPagamento() {
+    this.dataPagamento = LocalDateTime.now();
+    this.statusPagamento = StatusPagamento.APROVADO;
+}
+    //método com sobrecarga pra passar a data ao inves de pegar a data atual
+    public void registrarPagamento(LocalDateTime data, StatusPagamento status) {
+    this.dataPagamento = data;
+    this.statusPagamento = status;
+}
+
+
     public Integer getId() {
         return id;
     }

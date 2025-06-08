@@ -273,7 +273,7 @@ public class Principal {
         if (tipoPagamento.equals("1")) {
             return cadastrarPagamentoPix(scanner);
         } else if (tipoPagamento.equals("2")) {
-            return cadastrarPagamento(scanner);
+            return cadastrarPagamentoCartao(scanner);
         } else {
             System.out.println("Tipo de pagamento inválido. Tente novamente.");
             return cadastrarPagemento(scanner);
@@ -281,31 +281,41 @@ public class Principal {
     }
 
     private static Pagamento cadastrarPagamentoPix(Scanner scanner) {
-        System.out.println("Digite a chave PIX: ");
-        String chave = scanner.nextLine();
-        System.out.println("Digite o tipo de chave PIX: \n (1) CPF (2) CNPJ (3) Telefone (4) Email (5) Aleatória: ");
-        String tipoChave = scanner.nextLine();
-        TipoChavePix tipo = TipoChavePix.fromCodigo(tipoChave);
-        return new PagamentoPix(Pagamento.gerarTransacao(),LocalDateTime.now(), StatusPagamento.APROVADO, chave, tipo);
-    }
+    System.out.println("Digite a chave PIX: ");
+    String chave = scanner.nextLine();
 
-    private static Pagamento cadastrarPagamento(Scanner scanner) {
-        System.out.println("Digite o número do cartão: ");
-        Long numeroCartao = parseLong(scanner.nextLine());
-        System.out.println(
-                "Digite a bandeira do cartão: \n (1) VISA (2) MASTERCARD (3) ELO (4) AMERICAN EXPRESS (5) DINERS CLUB (6) HIPERCARD: ");
-        String bandeiraCod = scanner.nextLine();
-        BandeiraCartao bandeira = BandeiraCartao.fromCodigo(bandeiraCod);
-        System.out.println("Digite a data de validade (MM/AAAA): ");
-        String validadeStr = scanner.nextLine();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yyyy");
-        YearMonth validade = YearMonth.parse(validadeStr, formatter);
-        System.out.println("Digite o tipo de cartão: \n (1) Crédito (2) Débito: ");
-        String tipoCod = scanner.nextLine();
-        TipoCartao tipo = TipoCartao.fromCodigo(tipoCod);
+    System.out.println("Digite o tipo de chave PIX: \n (1) CPF (2) CNPJ (3) Telefone (4) Email (5) Aleatória: ");
+    String tipoChave = scanner.nextLine();
+    TipoChavePix tipo = TipoChavePix.fromCodigo(tipoChave);
 
-        return new PagamentoCartao(Pagamento.gerarTransacao(),LocalDateTime.now(), StatusPagamento.APROVADO, bandeira, numeroCartao, validade, tipo);
-    }
+    PagamentoPix pagamentoPix = new PagamentoPix(Pagamento.gerarTransacao(), null, null, chave, tipo);
+    pagamentoPix.registrarPagamento();
+    return pagamentoPix;
+}
+
+
+    private static Pagamento cadastrarPagamentoCartao(Scanner scanner) {
+    System.out.println("Digite o número do cartão: ");
+    Long numeroCartao = parseLong(scanner.nextLine());
+
+    System.out.println("Digite a bandeira do cartão: \n (1) VISA (2) MASTERCARD (3) ELO (4) AMERICAN EXPRESS (5) DINERS CLUB (6) HIPERCARD: ");
+    String bandeiraCod = scanner.nextLine();
+    BandeiraCartao bandeira = BandeiraCartao.fromCodigo(bandeiraCod);
+
+    System.out.println("Digite a data de validade (MM/AAAA): ");
+    String validadeStr = scanner.nextLine();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yyyy");
+    YearMonth validade = YearMonth.parse(validadeStr, formatter);
+
+    System.out.println("Digite o tipo de cartão: \n (1) Crédito (2) Débito: ");
+    String tipoCod = scanner.nextLine();
+    TipoCartao tipo = TipoCartao.fromCodigo(tipoCod);
+
+    PagamentoCartao pagamentoCartao = new PagamentoCartao(Pagamento.gerarTransacao(), null, null, bandeira, numeroCartao, validade, tipo);
+    pagamentoCartao.registrarPagamento();
+    return pagamentoCartao;
+}
+
 
     private static void listarUsuarios(List<Usuario> usuarios) {
         for (int i = 0; i < usuarios.size(); i++) {
