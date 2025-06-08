@@ -48,7 +48,7 @@ public class PessoaFisica extends Usuario{
         this.dataNascimento = dataNascimento;
     }
 
-    public static Integer idade(LocalDate dataNascimento) {
+    public static Integer getIdade(LocalDate dataNascimento) {
         return Period.between(dataNascimento, LocalDate.now()).getYears();
 
     }
@@ -58,7 +58,7 @@ public class PessoaFisica extends Usuario{
         return "--- Pessoa Física ---" + "\n" +
                 "CPF: " + cpf + "\n" +
                 "Nome: " + nome + "\n" +
-                "Idade: " + idade(dataNascimento) + " | Data de Nascimento: " + dataNascimento + "\n" +
+                "Idade: " + getIdade(dataNascimento) + " | Data de Nascimento: " + dataNascimento + "\n" +
                 super.toString();
     }
 }
